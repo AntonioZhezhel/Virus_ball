@@ -1,5 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
 
 namespace DefaultNamespace
@@ -10,10 +13,16 @@ namespace DefaultNamespace
         [SerializeField] private GameObject spherePrefab;
         private GameObject sphere;
         [SerializeField] private GameObject road;
+        [SerializeField] private GizmoDetect GizmoRoad;
+        [SerializeField] private GameObject VirusShotPosition;
         [SerializeField] private bool isScaling = false;
         [SerializeField] private float minScale; // Минимальный масштаб, который вы хотите использовать
         [SerializeField] private float maxScale = 2.0f; // Максимальный масштаб, который вы хотите использовать
         [SerializeField] private float scaleSpeed; // Скорость изменения масштаба
+        private GameObject trajectoryLine;
+        Vector3 lastTouchPos;
+        [SerializeField] private GameObject targetPositionPrefab; // Целевая позиция для второй сферы
+
 
         private void Start()
         {
@@ -30,29 +39,22 @@ namespace DefaultNamespace
                 if (Physics.Raycast(ray, out hit) && hit.collider.gameObject == gameObject)
                 {
                     isScaling = true;
-                }
-                
-                // Создаем префаб, если он задан
-                if (spherePrefab != null)
-                {
-   
                     
-                    sphere = Instantiate(spherePrefab, transform.position - Vector3.forward * 2.0f, Quaternion.identity);
-                    //sphere.transform.localScale = initialScale;
+                    sphere = Instantiate(spherePrefab, VirusShotPosition.transform.position, Quaternion.identity);
                 }
             }
 
             if (Input.GetMouseButtonUp(0))
             {
                 isScaling = false;
-                
-                
+                sphere.GetComponent<ShotSphere>().Shot(targetPositionPrefab.transform.position);
+                GizmoRoad.UpdateList();
+                GizmoRoad.CheckWin();
             }
 
             if (isScaling)
             {
                 float scaleFactor = Mathf.Clamp(1.0f - scaleSpeed, minScale, maxScale);
-                float scaleFactor2 = Mathf.Clamp(1.0f - scaleSpeed, maxScale, minScale);
 
                 // Проверяем, что масштаб не достиг минимального значения
                 if (transform.localScale.x >  minScale)
@@ -61,11 +63,22 @@ namespace DefaultNamespace
                     
                     //уменшение пути
                     Vector3 newScale = road.transform.localScale;
-                    newScale.y *= scaleFactor;
+                    newScale.x *= scaleFactor;
                     road.transform.localScale = newScale;
                     
+                    // //уменшение Gizm
+                    Vector3 newScaleGizmo = GizmoRoad.cubeSize;
+                    newScaleGizmo.x *= scaleFactor;
+                    GizmoRoad.cubeSize = newScaleGizmo;
+                    
+                    //увелечение сферы
                     sphere.transform.localScale /= scaleFactor;
                     
+                }
+                else
+                {
+                    gameObject.GetComponent<SphereCollider>().enabled = false;
+                    Debug.Log("Game Over");
                 }
             }
         }
