@@ -360,6 +360,7 @@
 "Assets/Scripts/Bot.cs"
 "Assets/Scripts/GizmoDetect.cs"
 "Assets/Scripts/Menu.cs"
+"Assets/Scripts/OpenDoor.cs"
 "Assets/Scripts/ShotSphere.cs"
 "Assets/Scripts/SphereOnTouch.cs"
 "Assets/TextMesh Pro/Examples & Extras/Scripts/Benchmark01.cs"

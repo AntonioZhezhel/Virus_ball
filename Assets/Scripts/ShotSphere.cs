@@ -7,6 +7,7 @@ namespace DefaultNamespace
     {
         [SerializeField] private float duration = 2.0f;
         [SerializeField] private float Delay = 0.5f;
+        private string TriggerBot = "Bot";
         
         public void Shot(Vector3 transformPosition)
         {
@@ -15,7 +16,7 @@ namespace DefaultNamespace
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.gameObject.tag == "Bot")
+            if (other.gameObject.tag == TriggerBot)
             {
                 StartCoroutine(DelayedDestroy());
                 gameObject.SetActive(false);

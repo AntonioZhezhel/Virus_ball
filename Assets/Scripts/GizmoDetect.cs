@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DefaultNamespace;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
 public class GizmoDetect : MonoBehaviour
@@ -11,6 +13,9 @@ public class GizmoDetect : MonoBehaviour
 
     private List<GameObject> objectsInsideCubeList = new List<GameObject>();
     [SerializeField] private GameObject parentObject;
+    [SerializeField] private SphereOnTouch SphereOnTouch;
+    [SerializeField] protected UnityEvent FinishEvent;
+
 
     private void OnDrawGizmos()
     {
@@ -36,7 +41,8 @@ public class GizmoDetect : MonoBehaviour
 
         if (objectsInsideCubeCount == 0)
         {
-
+            FinishEvent.Invoke();
+            SphereOnTouch.GotoFinish();
         }
     }
 

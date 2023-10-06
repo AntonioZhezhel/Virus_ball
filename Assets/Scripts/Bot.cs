@@ -9,12 +9,6 @@ public class Bot : MonoBehaviour
     {
         if (other.gameObject.tag == "Sphere") 
         {
-            // LeanTween.delayedCall(gameObject, 0.1f, () => {
-            //     if (other != null)
-            //         Destroy(other.gameObject);
-            //     Destroy(gameObject);
-            // });
-            //Destroy(gameObject);
             gameObject.SetActive(false);
             Destroy(other.gameObject);
             GizmoDetect.UpdateList();
