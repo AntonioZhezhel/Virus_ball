@@ -377,7 +377,7 @@ MonoBehaviour:
   MinScale: 0.5
   MaxScale: 2
   ScaleSpeed: 0.001
-  DurationMainSphere: 50
+  DurationMainSphere: 100
   TargetPositionPrefab: {fileID: 1474189362}
 --- !u!54 &87481349
 Rigidbody:
@@ -1183,7 +1183,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56c9634144daf134d94645a769310bac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TriggerDoor: Door
+  TriggerDoor: MainSphere
   EventDoor:
     m_PersistentCalls:
       m_Calls:
@@ -1742,7 +1742,7 @@ Transform:
   m_GameObject: {fileID: 1017747599}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.127, z: -3.08}
+  m_LocalPosition: {x: 0, y: -0.127, z: -1.7}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
