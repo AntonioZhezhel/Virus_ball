@@ -376,7 +376,7 @@ MonoBehaviour:
   VirusShotPosition: {fileID: 1017747599}
   MinScale: 0.5
   MaxScale: 2
-  ScaleSpeed: 0.001
+  ScaleSpeed: 0.01
   DurationMainSphere: 100
   TargetPositionPrefab: {fileID: 1474189362}
 --- !u!54 &87481349
