@@ -6,7 +6,7 @@ public class OpenDoor : MonoBehaviour
 {
     [SerializeField] private string TriggerDoor = "MainSphere";
     [SerializeField] protected UnityEvent EventDoor;
-
+    private DataHolder DataHolder;
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == TriggerDoor)
@@ -19,6 +19,8 @@ public class OpenDoor : MonoBehaviour
     {
         if (other.gameObject.tag == "MainSphere")
         {
+            DataHolder = FindObjectOfType<DataHolder>();
+            DataHolder.textToPass = "You won!";
             SceneManager.LoadScene(0);
         }
     }

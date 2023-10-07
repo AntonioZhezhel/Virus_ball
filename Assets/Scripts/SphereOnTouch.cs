@@ -18,6 +18,7 @@ namespace DefaultNamespace
         private GameObject Sphere;
         private GameObject TrajectoryLine;
         private bool IsScaling = false;
+        private DataHolder DataHolder;
 
         private void Update()
         {
@@ -67,6 +68,8 @@ namespace DefaultNamespace
                 else
                 {
                     gameObject.GetComponent<SphereCollider>().enabled = false;
+                    DataHolder = FindObjectOfType<DataHolder>();
+                    DataHolder.textToPass = "Game Over";
                     SceneManager.LoadScene(0);
                 }
             }
