@@ -1,33 +1,23 @@
-﻿using System;
-using System.Collections;
-using Unity.VisualScripting;
+﻿using System.Collections;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 
 namespace DefaultNamespace
 {
     public class SphereOnTouch : MonoBehaviour
     {
-        //private Vector3 initialScale;
-        [SerializeField] private GameObject spherePrefab;
-        private GameObject sphere;
-        [SerializeField] private GameObject road;
+        [SerializeField] private GameObject SpherePrefab;
+        [SerializeField] private GameObject Road;
         [SerializeField] private GizmoDetect GizmoRoad;
         [SerializeField] private GameObject VirusShotPosition;
-        private bool isScaling = false;
-        [SerializeField] private float minScale; // Минимальный масштаб, который вы хотите использовать
-        [SerializeField] private float maxScale = 2.0f; // Максимальный масштаб, который вы хотите использовать
-        [SerializeField] private float scaleSpeed; // Скорость изменения масштаба
-        private GameObject trajectoryLine;
-        [SerializeField] private float durationMainSphere;
-        [SerializeField] private GameObject targetPositionPrefab; // Целевая позиция для второй сферы
-
-        // private void Start()
-        // {
-        //     initialScale = transform.localScale;
-        // }
+        [SerializeField] private float MinScale; // Минимальный масштаб, который вы хотите использовать
+        [SerializeField] private float MaxScale = 2.0f; // Максимальный масштаб, который вы хотите использовать
+        [SerializeField] private float ScaleSpeed; // Скорость изменения масштаба
+        [SerializeField] private float DurationMainSphere;
+        [SerializeField] private GameObject TargetPositionPrefab; // Целевая позиция для второй сферы
+        private GameObject Sphere;
+        private GameObject TrajectoryLine;
+        private bool IsScaling = false;
 
         private void Update()
         {
@@ -38,41 +28,40 @@ namespace DefaultNamespace
 
                 if (Physics.Raycast(ray, out hit) && hit.collider.gameObject == gameObject)
                 {
-                    isScaling = true;
-
-                    sphere = Instantiate(spherePrefab, VirusShotPosition.transform.position, Quaternion.identity);
+                    IsScaling = true;
+                    Sphere = Instantiate(SpherePrefab, VirusShotPosition.transform.position, Quaternion.identity);
                 }
             }
 
             if (Input.GetMouseButtonUp(0))
             {
-                isScaling = false;
-                sphere.GetComponent<ShotSphere>().Shot(targetPositionPrefab.transform.position);
+                IsScaling = false;
+                Sphere.GetComponent<ShotSphere>().Shot(TargetPositionPrefab.transform.position);
                 GizmoRoad.UpdateList();
                 GizmoRoad.CheckWin();
             }
 
-            if (isScaling)
+            if (IsScaling)
             {
-                float scaleFactor = Mathf.Clamp(1.0f - scaleSpeed, minScale, maxScale);
+                float scaleFactor = Mathf.Clamp(1.0f - ScaleSpeed, MinScale, MaxScale);
 
                 // Проверяем, что масштаб не достиг минимального значения
-                if (transform.localScale.x > minScale)
+                if (transform.localScale.x > MinScale)
                 {
                     transform.localScale *= scaleFactor;
 
                     //уменшение пути
-                    Vector3 newScale = road.transform.localScale;
+                    Vector3 newScale = Road.transform.localScale;
                     newScale.x *= scaleFactor;
-                    road.transform.localScale = newScale;
+                    Road.transform.localScale = newScale;
 
                     // //уменшение Gizm
-                    Vector3 newScaleGizmo = GizmoRoad.cubeSize;
+                    Vector3 newScaleGizmo = GizmoRoad.CubeSize;
                     newScaleGizmo.x *= scaleFactor;
-                    GizmoRoad.cubeSize = newScaleGizmo;
+                    GizmoRoad.CubeSize = newScaleGizmo;
 
                     //увелечение сферы
-                    sphere.transform.localScale /= scaleFactor;
+                    Sphere.transform.localScale /= scaleFactor;
 
                 }
                 else
@@ -92,10 +81,10 @@ namespace DefaultNamespace
         {
             float elapsedTime = 0f;
 
-            while (elapsedTime < durationMainSphere)
+            while (elapsedTime < DurationMainSphere)
             {
-                transform.position = Vector3.Lerp(transform.position, targetPositionPrefab.transform.position,
-                    elapsedTime / durationMainSphere);
+                transform.position = Vector3.Lerp(transform.position, TargetPositionPrefab.transform.position, 
+                    elapsedTime / DurationMainSphere);
                 elapsedTime += Time.deltaTime;
                 yield return null;
             }

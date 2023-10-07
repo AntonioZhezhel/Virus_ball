@@ -5,10 +5,10 @@ namespace DefaultNamespace
 {
     public class ShotSphere : MonoBehaviour
     {
-        [SerializeField] private float duration = 2.0f;
+        [SerializeField] private float Duration = 2.0f;
         [SerializeField] private float Delay = 0.5f;
         private string TriggerBot = "Bot";
-        
+
         public void Shot(Vector3 transformPosition)
         {
             StartCoroutine(MoveSecondarySphere(transformPosition));
@@ -33,18 +33,17 @@ namespace DefaultNamespace
         {
             float elapsedTime = 0f;
 
-            while (elapsedTime < duration)
+            while (elapsedTime < Duration)
             {
                 if (gameObject == null)
                 {
                     yield break; // Прерываем корутину, если сфера была уничтожена
                 }
 
-                transform.position = Vector3.Lerp(transform.position, targetPosition, elapsedTime / duration);
+                transform.position = Vector3.Lerp(transform.position, targetPosition, elapsedTime / Duration);
                 elapsedTime += Time.deltaTime;
                 yield return null;
             }
-
             Destroy(gameObject);
         }
     }

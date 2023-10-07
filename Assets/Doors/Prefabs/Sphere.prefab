@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1364813702754466915}
   - component: {fileID: 1705686952547796522}
   m_Layer: 0
-  m_Name: Sphere (1)
+  m_Name: Sphere
   m_TagString: Sphere
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -119,7 +119,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f9033d1118c0475f901da9d1bed0a38e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  duration: 20
+  Duration: 20
+  Delay: 0.5
 --- !u!54 &1705686952547796522
 Rigidbody:
   m_ObjectHideFlags: 0

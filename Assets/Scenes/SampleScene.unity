@@ -370,15 +370,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03d7218be90b4d6594d557467a0f1454, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spherePrefab: {fileID: 7869388012593020500, guid: 5cb5f12de18346c4b935a9d6cafd40b6, type: 3}
-  road: {fileID: 1927486327}
+  SpherePrefab: {fileID: 7869388012593020500, guid: 5cb5f12de18346c4b935a9d6cafd40b6, type: 3}
+  Road: {fileID: 1927486327}
   GizmoRoad: {fileID: 164003453}
   VirusShotPosition: {fileID: 1017747599}
-  minScale: 0.5
-  maxScale: 2
-  scaleSpeed: 0.01
-  durationMainSphere: 200
-  targetPositionPrefab: {fileID: 1474189362}
+  MinScale: 0.5
+  MaxScale: 2
+  ScaleSpeed: 0.001
+  DurationMainSphere: 50
+  TargetPositionPrefab: {fileID: 1474189362}
 --- !u!54 &87481349
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -638,9 +638,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c474f33226b0eb745be6035d70c008fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cubeSize: {x: 1.8, y: 2.21, z: 25.3}
+  CubeSize: {x: 1.9, y: 3.8, z: 24.39}
   gizmoColor: {r: 0, g: 0, b: 1, a: 1}
-  parentObject: {fileID: 743930041}
+  ParentObject: {fileID: 743930041}
   SphereOnTouch: {fileID: 87481348}
   FinishEvent:
     m_PersistentCalls:
