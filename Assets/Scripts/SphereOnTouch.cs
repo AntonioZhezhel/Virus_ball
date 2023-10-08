@@ -24,14 +24,8 @@ namespace DefaultNamespace
         {
             if (Input.GetMouseButtonDown(0))
             {
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                RaycastHit hit;
-
-                if (Physics.Raycast(ray, out hit) && hit.collider.gameObject == gameObject)
-                {
-                    IsScaling = true;
-                    Sphere = Instantiate(SpherePrefab, VirusShotPosition.transform.position, Quaternion.identity);
-                }
+                IsScaling = true;
+                Sphere = Instantiate(SpherePrefab, VirusShotPosition.transform.position, Quaternion.identity);
             }
 
             if (Input.GetMouseButtonUp(0))

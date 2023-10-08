@@ -9,7 +9,7 @@ public class OpenDoor : MonoBehaviour
     private DataHolder DataHolder;
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == TriggerDoor)
+        if (other.gameObject.tag == "MainSphere")
         {
             EventDoor.Invoke();
         }

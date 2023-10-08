@@ -3,7 +3,6 @@ using UnityEngine;
 public class Bot : MonoBehaviour
 {
     [SerializeField] private GizmoDetect GizmoDetect;
-    private string TriggerSphere = "Sphere";
 
     private void OnTriggerEnter(Collider other)
     {
