@@ -4,11 +4,11 @@ ScriptsOnlyBuild:
     - Bot
     - DataHolder
     - DataReceiver
-    - DefaultNamespace.ShotSphere
-    - DefaultNamespace.SphereOnTouch
     - GizmoDetect
     - Menu
     - OpenDoor
+    - VirusBall.ShotSphere
+    - VirusBall.SphereOnTouch
     Unity.Rider.Editor.dll:
     - Packages.Rider.Editor.RiderScriptEditorData
     - Packages.Rider.Editor.RiderScriptEditorPersistedState
@@ -734,7 +734,7 @@ ScriptsOnlyBuild:
       serializedVersion: 2
       Hash: a5b8012935485de7504db9d14971f885
     assemblyName: Assembly-CSharp
-    namespaceName: DefaultNamespace
+    namespaceName: VirusBall
     className: ShotSphere
   - hash:
       serializedVersion: 2
@@ -920,7 +920,7 @@ ScriptsOnlyBuild:
       serializedVersion: 2
       Hash: 40777a1a98db31a275d40eada279a097
     assemblyName: Assembly-CSharp
-    namespaceName: DefaultNamespace
+    namespaceName: VirusBall
     className: SphereOnTouch
   - hash:
       serializedVersion: 2
@@ -1290,19 +1290,19 @@ ScriptsOnlyBuild:
     className: UnityOnSliderValueChangedMessageListener
   - hash:
       serializedVersion: 2
-      Hash: 081675c605be1781e967b0a1eb7fb0ae
+      Hash: 0655fef8df17bf9baea48da850f79f89
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: OpenDoor
   - hash:
       serializedVersion: 2
-      Hash: 64194a95e4e0bbb27273771f0a90ec9d
+      Hash: bb8e2b88597c4a2970a9826dad28d233
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: DataHolder
   - hash:
       serializedVersion: 2
-      Hash: 9f240a8c3bf9ee44a8800288d8a8391b
+      Hash: 3304714602427a6481e1c4a448184ad7
     assemblyName: Assembly-CSharp
     namespaceName: 
     className: DataReceiver

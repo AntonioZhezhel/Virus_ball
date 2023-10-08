@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace DefaultNamespace
+namespace VirusBall
 {
     public class SphereOnTouch : MonoBehaviour
     {
@@ -10,67 +10,87 @@ namespace DefaultNamespace
         [SerializeField] private GameObject Road;
         [SerializeField] private GizmoDetect GizmoRoad;
         [SerializeField] private GameObject VirusShotPosition;
-        [SerializeField] private float MinScale; // Минимальный масштаб, который вы хотите использовать
-        [SerializeField] private float MaxScale = 2.0f; // Максимальный масштаб, который вы хотите использовать
-        [SerializeField] private float ScaleSpeed; // Скорость изменения масштаба
+        [SerializeField] private float MinScale;  
+        [SerializeField] private float MaxScale = 2.0f;
+        [SerializeField] private float ScaleSpeed;
         [SerializeField] private float DurationMainSphere;
-        [SerializeField] private GameObject TargetPositionPrefab; // Целевая позиция для второй сферы
+        [SerializeField] private GameObject TargetPositionPrefab; 
         private GameObject Sphere;
         private GameObject TrajectoryLine;
         private bool IsScaling = false;
+        private bool CheckFinish = true;
         private DataHolder DataHolder;
 
         private void Update()
         {
-            if (Input.GetMouseButtonDown(0))
+            if (CheckFinish)
             {
-                IsScaling = true;
-                Sphere = Instantiate(SpherePrefab, VirusShotPosition.transform.position, Quaternion.identity);
+               if (Input.GetMouseButtonDown(0))
+                   MouseButtonDown();
+               
+               if (Input.GetMouseButtonUp(0))
+                   MouseButtonUp();
             }
-
-            if (Input.GetMouseButtonUp(0))
-            {
-                IsScaling = false;
-                Sphere.GetComponent<ShotSphere>().Shot(TargetPositionPrefab.transform.position);
-                GizmoRoad.UpdateList();
-                GizmoRoad.CheckWin();
-            }
+            
 
             if (IsScaling)
             {
                 float scaleFactor = Mathf.Clamp(1.0f - ScaleSpeed, MinScale, MaxScale);
 
-                // Проверяем, что масштаб не достиг минимального значения
+                // Check that the scale has not reached the minimum value
                 if (transform.localScale.x > MinScale)
                 {
                     transform.localScale *= scaleFactor;
-
-                    //уменшение пути
-                    Vector3 newScale = Road.transform.localScale;
-                    newScale.x *= scaleFactor;
-                    Road.transform.localScale = newScale;
-
-                    // //уменшение Gizm
-                    Vector3 newScaleGizmo = GizmoRoad.CubeSize;
-                    newScaleGizmo.x *= scaleFactor;
-                    GizmoRoad.CubeSize = newScaleGizmo;
-
-                    //увелечение сферы
-                    Sphere.transform.localScale /= scaleFactor;
-
+                    DecreasePath(scaleFactor);
+                    DecreaseGizmo(scaleFactor);
+                    IncreaseSphere(scaleFactor);
                 }
                 else
                 {
                     gameObject.GetComponent<SphereCollider>().enabled = false;
                     DataHolder = FindObjectOfType<DataHolder>();
-                    DataHolder.textToPass = "Game Over";
+                    DataHolder.TextToPass = "Game Over";
                     SceneManager.LoadScene(0);
                 }
             }
         }
 
+        private void MouseButtonDown()
+        {
+            IsScaling = true;
+            Sphere = Instantiate(SpherePrefab, VirusShotPosition.transform.position, Quaternion.identity);
+        }
+
+        private void MouseButtonUp()
+        {
+            IsScaling = false;
+            Sphere.GetComponent<ShotSphere>().Shot(TargetPositionPrefab.transform.position);
+            GizmoRoad.UpdateList();
+            GizmoRoad.CheckWin();
+        }
+
+        private void DecreasePath(float scaleFactor)
+        {
+            Vector3 newScale = Road.transform.localScale;
+            newScale.x *= scaleFactor;
+            Road.transform.localScale = newScale; 
+        }
+
+        private void DecreaseGizmo(float scaleFactor)
+        {
+            Vector3 newScaleGizmo = GizmoRoad.CubeSize;
+            newScaleGizmo.x *= scaleFactor;
+            GizmoRoad.CubeSize = newScaleGizmo;
+        }
+        
+        private void IncreaseSphere(float scaleFactor)
+        {
+            Sphere.transform.localScale /= scaleFactor;
+        }
+
         public void GotoFinish()
         {
+            CheckFinish = false;
             StartCoroutine(GotoFinishSphere());
         }
 
@@ -80,7 +100,7 @@ namespace DefaultNamespace
 
             while (elapsedTime < DurationMainSphere)
             {
-                transform.position = Vector3.Lerp(transform.position, TargetPositionPrefab.transform.position, 
+                transform.position = Vector3.Lerp(transform.position, TargetPositionPrefab.transform.position,
                     elapsedTime / DurationMainSphere);
                 elapsedTime += Time.deltaTime;
                 yield return null;

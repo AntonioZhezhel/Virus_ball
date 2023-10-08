@@ -1,14 +1,13 @@
 using System.Collections.Generic;
-using DefaultNamespace;
+using VirusBall;
 using UnityEngine;
 using UnityEngine.Events;
 
 public class GizmoDetect : MonoBehaviour
 {
-    public Vector3 CubeSize = new(1f, 1f, 1f); // Размер куба
-    public Color gizmoColor = Color.blue; // Цвет гизмоса
-
     private List<GameObject> ObjectsInsideCubeList = new List<GameObject>();
+    public Vector3 CubeSize = new(1f, 1f, 1f);
+    [SerializeField] private Color gizmoColor = Color.blue;
     [SerializeField] private GameObject ParentObject;
     [SerializeField] private SphereOnTouch SphereOnTouch;
     [SerializeField] protected UnityEvent FinishEvent;
@@ -26,7 +25,7 @@ public class GizmoDetect : MonoBehaviour
 
         foreach (var obj in ObjectsInsideCubeList)
         {
-            // Проверяем, находится ли объект внутри куба
+            // Check if the object is inside the cube
             if (IsInsideCube(obj.transform.position))
             {
                 objectsInsideCubeCount++;
@@ -46,19 +45,17 @@ public class GizmoDetect : MonoBehaviour
 
         if (ParentObject != null)
         {
-            // Проходимся по каждому дочернему объекту
             foreach (Transform child in ParentObject.transform)
             {
                 if (child.gameObject.activeSelf)
                 {
-                    // child.gameObject - это дочерний GameObject
                     ObjectsInsideCubeList.Add(child.gameObject); // Добавляем его в список
                 }
             }
         }
     }
 
-    // Функция для проверки, находится ли точка внутри куба
+    // Function to check if a point is inside a cube
     private bool IsInsideCube(Vector3 point)
     {
         Vector3 cubeCenter = transform.position;
